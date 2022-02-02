@@ -1,2 +1,7 @@
 Punto 1 Parte 1:
-    
+    - El comsumo de CPU empieca cuando en la clase de StarProduction.java cuando crea una nueva cola y a esa cola se la manda
+      a producer junto con el max value de la clase long. en donde se crea un hilo de producer responsable por en un ciclo infinito
+      de asigarle el siguiente valor a dataseed y agregarlo a la cola. teniendo un tiempo de espera de 1000 milisengundos. en el momento que
+      se inicia el hilo de comsumer, toma inmediatamente todos los elementos de la cola y los comsume, no cuenta ocn iempo de espere y apenas
+      se agrega a la cola, es comsumido. al ser un ciclo infinito de agregar y eliminar de la cola genera que el gaste de CPU se comport de
+      la manera que lo hace, teniendo picos y oscilando entre un rango statitoc nunca subiendo ni bajando de este. 
