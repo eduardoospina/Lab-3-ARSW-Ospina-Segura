@@ -4,4 +4,12 @@ Punto 1 Parte 1:
       de asigarle el siguiente valor a dataseed y agregarlo a la cola. teniendo un tiempo de espera de 1000 milisengundos. en el momento que
       se inicia el hilo de comsumer, toma inmediatamente todos los elementos de la cola y los comsume, no cuenta ocn iempo de espere y apenas
       se agrega a la cola, es comsumido. al ser un ciclo infinito de agregar y eliminar de la cola genera que el gaste de CPU se comport de
-      la manera que lo hace, teniendo picos y oscilando entre un rango statitoc nunca subiendo ni bajando de este. 
+      la manera que lo hace, teniendo picos y oscilando entre un rango statitoc nunca subiendo ni bajando de este. junto con la implementacion
+      de un cicloinfinito que por si ya es un comsumo elevado en CPU.
+
+Punto 1 parte 2:
+    - para reducir el consume de CPU nos dimos cuenta que la clase de Comsumer.java no llegaba a tener tiempos de espera cada vez que queria
+      comsumir de la cola, por lo que cada vez que se agregaba un objeto a la cola comsumer lo comsumia directamente, sin contar las 5 primero segundos
+      de ventaja que tiene el hilo de producer. por lo que al implementar tiempos de espera dentro de los while infinitos permite relentizar la
+      operacion de comsumo de lo producido, normalizando las operaciones de los hilos y reduciendo el comsumo de CPU de una manera muy elevada.
+      en el caso contrario de remover las esperas dentro de los ciclos infinitos causaria que el comsumo de CPU se incremente exponencialmente. 
