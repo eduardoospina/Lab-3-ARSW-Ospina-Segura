@@ -22,3 +22,9 @@ Parte 1 Punto 3:
     de espera menor que el consumidor. Para hacer que se respete el limite del stock de la colleccion, hay que usar el constructor de
     la colleccion que recibe como parametro un entero, este entero representa el limite de objetos que puede guardar la colleccion.
 
+Parte II
+
+    -Para hacer que sea mas eficiente la busqueda se puede tener un contador que sume de manera sincronizada cada vez que un hilo encuentra
+    el host en una de las listas negras, y luego dentro del ciclo For, en el cual el hilo se encarga de verificar que el host no este e el subconjunto
+    de listas negras, se agrega un condicional que verifique si ya se encontraron el numero de apariciones que hay como limite, si se cumple esta condicion
+    hay que hacer que se pare la busqueda de los hilos, como se muestra en el codigo adjunto del laboratorio 1
