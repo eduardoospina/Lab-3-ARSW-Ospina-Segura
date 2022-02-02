@@ -1,4 +1,5 @@
-Punto 1 Parte 1:
+Parte 1 Punto 1:
+
     - El comsumo de CPU empieca cuando en la clase de StarProduction.java cuando crea una nueva cola y a esa cola se la manda
       a producer junto con el max value de la clase long. en donde se crea un hilo de producer responsable por en un ciclo infinito
       de asigarle el siguiente valor a dataseed y agregarlo a la cola. teniendo un tiempo de espera de 1000 milisengundos. en el momento que
@@ -7,9 +8,17 @@ Punto 1 Parte 1:
       la manera que lo hace, teniendo picos y oscilando entre un rango statitoc nunca subiendo ni bajando de este. junto con la implementacion
       de un cicloinfinito que por si ya es un comsumo elevado en CPU.
 
-Punto 1 parte 2:
-    - para reducir el consume de CPU nos dimos cuenta que la clase de Comsumer.java no llegaba a tener tiempos de espera cada vez que queria
+Parte 1 Punto 2:
+
+    - Para reducir el consume de CPU nos dimos cuenta que la clase de Comsumer.java no llegaba a tener tiempos de espera cada vez que queria
       comsumir de la cola, por lo que cada vez que se agregaba un objeto a la cola comsumer lo comsumia directamente, sin contar las 5 primero segundos
       de ventaja que tiene el hilo de producer. por lo que al implementar tiempos de espera dentro de los while infinitos permite relentizar la
       operacion de comsumo de lo producido, normalizando las operaciones de los hilos y reduciendo el comsumo de CPU de una manera muy elevada.
-      en el caso contrario de remover las esperas dentro de los ciclos infinitos causaria que el comsumo de CPU se incremente exponencialmente. 
+      en el caso contrario de remover las esperas dentro de los ciclos infinitos causaria que el comsumo de CPU se incremente exponencialmente.
+
+Parte 1 Punto 3:
+
+    -Para hacer que el productor produzca rapido y que el consumidor consuma lento, hay que hacer que el productr tenga un tiempo
+    de espera menor que el consumidor. Para hacer que se respete el limite del stock de la colleccion, hay que usar el constructor de
+    la colleccion que recibe como parametro un entero, este entero representa el limite de objetos que puede guardar la colleccion.
+
