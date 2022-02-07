@@ -1,4 +1,6 @@
-Parte 1 Punto 1:
+Parte I
+
+    Punto 1:
 
     - El comsumo de CPU empieca cuando en la clase de StarProduction.java cuando crea una nueva cola y a esa cola se la manda
       a producer junto con el max value de la clase long. en donde se crea un hilo de producer responsable por en un ciclo infinito
@@ -8,7 +10,9 @@ Parte 1 Punto 1:
       la manera que lo hace, teniendo picos y oscilando entre un rango statitoc nunca subiendo ni bajando de este. junto con la implementacion
       de un cicloinfinito que por si ya es un comsumo elevado en CPU.
 
-Parte 1 Punto 2:
+Parte I
+
+    Punto 2:
 
     - Para reducir el consume de CPU nos dimos cuenta que la clase de Comsumer.java no llegaba a tener tiempos de espera cada vez que queria
       comsumir de la cola, por lo que cada vez que se agregaba un objeto a la cola comsumer lo comsumia directamente, sin contar las 5 primero segundos
@@ -16,7 +20,9 @@ Parte 1 Punto 2:
       operacion de comsumo de lo producido, normalizando las operaciones de los hilos y reduciendo el comsumo de CPU de una manera muy elevada.
       en el caso contrario de remover las esperas dentro de los ciclos infinitos causaria que el comsumo de CPU se incremente exponencialmente.
 
-Parte 1 Punto 3:
+Parte I
+
+    Punto 3:
 
     -Para hacer que el productor produzca rapido y que el consumidor consuma lento, hay que hacer que el productr tenga un tiempo
     de espera menor que el consumidor. Para hacer que se respete el limite del stock de la colleccion, hay que usar el constructor de
@@ -27,4 +33,20 @@ Parte II
     -Para hacer que sea mas eficiente la busqueda se puede tener un contador que sume de manera sincronizada cada vez que un hilo encuentra
     el host en una de las listas negras, y luego dentro del ciclo For, en el cual el hilo se encarga de verificar que el host no este e el subconjunto
     de listas negras, se agrega un condicional que verifique si ya se encontraron el numero de apariciones que hay como limite, si se cumple esta condicion
-    hay que hacer que se pare la busqueda de los hilos, como se muestra en el codigo adjunto del laboratorio 1
+    hay que hacer que se pare la busqueda de los hilos, como se muestra en el codigo adjunto del laboratorio 1.
+
+Parte III
+
+    Punto 2
+    
+    -La funcionalidad anteriormente mencionada se implemento de manera que se crean el numero de inmortales que el usuario desee, todos con un valor de vida prestablecido
+    pero en el momento en que los inmortales empiezan a pelear, no se tiene en cuenta condiciones de carrera, por lo cual no se realiza de manera adecuada la operacion de
+    restar y sumar vida, causando que la suma total de vida siempre este aumentando y que nunca llegue a morir ninguno de los inmortales.
+
+    -Para calcular el valor del invariante, siendo este que cambia en relacion con el numero de jugadores "N" (en este caso 3) que se vaya a usar, este invariante seria el numero
+    de jugadores "N" multiplicado por la constante estatica DEFAULT_IMMORTAL_HEALTH (en este caso 100), debido a esto el valor del invariante para este caso deberia ser 3*100
+
+    Punto 3
+    -La opcion de "pause and check" itera sobre la lista que contiene a los inmortales y suma la vida de todos estos e imprime la vida de cada inmortal y
+    sumatoria total de vida de todos estos, sin embargo no pausa el juego, ya que en la implementacion no se ha añadido dicha funcion y solo se devuelve la suma
+    total de vida de los inmortales.

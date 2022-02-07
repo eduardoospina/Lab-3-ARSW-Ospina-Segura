@@ -17,6 +17,8 @@ public class Immortal extends Thread {
 
     private final Random r = new Random(System.currentTimeMillis());
 
+    private Object lock = new Object();
+
 
     public Immortal(String name, List<Immortal> immortalsPopulation, int health, int defaultDamageValue, ImmortalUpdateReportCallback ucb) {
         super(name);
@@ -71,8 +73,18 @@ public class Immortal extends Thread {
         health = v;
     }
 
-    public int getHealth() {
+    public synchronized int getHealth() {
         return health;
+    }
+
+    public void esperar() {
+        synchronized (lock){
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
