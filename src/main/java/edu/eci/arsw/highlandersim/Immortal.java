@@ -19,6 +19,8 @@ public class Immortal extends Thread {
 
     private static boolean pausa = false;
 
+    private static boolean parar = false;
+
 
     public Immortal(String name, List<Immortal> immortalsPopulation, int health, int defaultDamageValue, ImmortalUpdateReportCallback ucb) {
         super(name);
@@ -31,23 +33,24 @@ public class Immortal extends Thread {
 
     public void run() {
 
-        while (true) {
-            if (!pausa && health > 0){
+        while (health > 0 && !parar) {
+            if (!pausa){
                 Immortal im;
 
-                int myIndex = immortalsPopulation.indexOf(this);
+                synchronized (immortalsPopulation) {
+                    int myIndex = immortalsPopulation.indexOf(this);
 
-                int nextFighterIndex = r.nextInt(immortalsPopulation.size());
+                    int nextFighterIndex = r.nextInt(immortalsPopulation.size());
 
-                //avoid self-fight
-                if (nextFighterIndex == myIndex) {
-                    nextFighterIndex = ((nextFighterIndex + 1) % immortalsPopulation.size());
+                    //avoid self-fight
+                    if (nextFighterIndex == myIndex) {
+                        nextFighterIndex = ((nextFighterIndex + 1) % immortalsPopulation.size());
+                    }
+
+                    im = immortalsPopulation.get(nextFighterIndex);
+
+                    this.fight(im);
                 }
-
-                im = immortalsPopulation.get(nextFighterIndex);
-
-                this.fight(im);
-
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {
@@ -92,6 +95,10 @@ public class Immortal extends Thread {
 
     public static void setPausa(boolean pausa) {
         Immortal.pausa = pausa;
+    }
+
+    public static void setStop(boolean parar) {
+        Immortal.parar = parar;
     }
 
     @Override

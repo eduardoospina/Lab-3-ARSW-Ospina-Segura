@@ -89,8 +89,8 @@ public class ControlFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int sum = 0;
                 for (Immortal im: immortals) {
-                    sum += im.getHealth();
                     im.setPausa(true);
+                    sum += im.getHealth();
                 }
                 statisticsLabel.setText("<html>"+immortals.toString()+"<br>Health sum:"+ sum);
             }
@@ -123,6 +123,13 @@ public class ControlFrame extends JFrame {
         JButton btnStop = new JButton("STOP");
         btnStop.setForeground(Color.RED);
         toolBar.add(btnStop);
+        btnStop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for (Immortal im: immortals) {
+                    im.setStop(true);
+                }
+            }
+        });
 
         scrollPane = new JScrollPane();
         contentPane.add(scrollPane, BorderLayout.CENTER);
