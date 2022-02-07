@@ -89,7 +89,6 @@ public class ControlFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int sum = 0;
                 for (Immortal im : immortals) {
-                    im.esperar();
                     sum += im.getHealth();
                 }
                 statisticsLabel.setText("<html>"+immortals.toString()+"<br>Health sum:"+ sum);
