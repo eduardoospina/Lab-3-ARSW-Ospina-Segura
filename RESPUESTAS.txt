@@ -56,16 +56,19 @@ Parte III
     encontramos muchos errores de las condiciones de carrera que generaba que se nos bloqueara completamente el codigo y no se pudiera implementar de la manera correcta.
     por lo que nos toco agregar de manera synchronizada un metodo y unos condicionales que permiten su funcionamiento ordenado. Y al implementar permite su correcto uso.
 
-    Punto 5
+    Punto 5:
     -El invarianteno se cumple, en ocasiones se excede el nivel de vida total que deberian tener los inmortales y en ocasiones
     la suma de vida es menor a la que deberia ser, ya que aunque deja pausarlo aun no corregimos la forma en como cada hilo de immortales
     roba de manera libre y pelea constantemente al mismo tiempo con varios immortales.
 
-    Punto 6
+    Punto 6:
     -Las posibles regiones criticas son parte del metodo run, en donde se escogia el inmortal contra el que se iba a pelear y se efectuaba la pelea entre dos inmortales, el
     metodo changeHealth y el metodo getHealth.
 
-    punto 8.
+    punto 7:
+    - evidencia en imagenes.
+
+    punto 8:
     - la estrategia implementada para solucionar todo esto fue la de sincronizar todos estos elementos elementos que funcionan de manera concurrente y que modificaban los
     valores de la vida de de los immortales, y al incluir el correcto manejo del pause and check y resume se corriguen estos errores y permite que el programa corra como se desea.
 
@@ -73,6 +76,9 @@ Parte III
     - evidencia se ncuentra en los s5 a s9 en la carpeta de img.
 
     punto 10:
+    - al suprimir a los immortales de la lista, se p´resenta una condicion de carrera ya que puede ocurrir que cuando se este eliminando a un immortal puede que otro esta accediendo a
+    sus variables lo que genera que s ebloquee el programa, por lo que decidimos implementar una nueva lista en donde se van guardando los muertos y cuanod muere pro primera vez se guarda y
+    se le dice que lo ignore para no pelear con el nuevamente una vez ya esta muerto. 
 
     punto 11:
     - se implementa el actionlistener de stop siguiendo los mismo pasos que para el pause, pero acabando y terminando el programa completamente, agregando un nuevo condicional
