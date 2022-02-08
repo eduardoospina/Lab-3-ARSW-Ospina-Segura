@@ -1,5 +1,6 @@
 package edu.eci.arsw.highlandersim;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,6 +22,8 @@ public class Immortal extends Thread {
 
     private static boolean parar = false;
 
+    private List<Immortal> immortalsPopulationDead = new LinkedList<Immortal>();
+
 
     public Immortal(String name, List<Immortal> immortalsPopulation, int health, int defaultDamageValue, ImmortalUpdateReportCallback ucb) {
         super(name);
@@ -33,16 +36,15 @@ public class Immortal extends Thread {
 
     public void run() {
 
-        while (health > 0 && !parar) {
-            if (!pausa){
+        while (!parar && health > 0) {
+            if (!pausa) {
                 Immortal im;
-
                 synchronized (immortalsPopulation) {
                     int myIndex = immortalsPopulation.indexOf(this);
 
                     int nextFighterIndex = r.nextInt(immortalsPopulation.size());
 
-                    //avoid self-fight
+                        //avoid self-fight
                     if (nextFighterIndex == myIndex) {
                         nextFighterIndex = ((nextFighterIndex + 1) % immortalsPopulation.size());
                     }
@@ -53,7 +55,8 @@ public class Immortal extends Thread {
                 }
                 try {
                     Thread.sleep(1);
-                } catch (InterruptedException e) {
+                }
+                catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -74,13 +77,20 @@ public class Immortal extends Thread {
     }
 
     public void fight(Immortal i2) {
+        synchronized (i2) {
+            if (i2.getHealth() > 0) {
+                if (!(immortalsPopulation.size()==2 && i2.getHealth()-defaultDamageValue == 0)) {
+                    i2.changeHealth(i2.getHealth() - defaultDamageValue);
+                    this.health += defaultDamageValue;
+                    updateCallback.processReport("Fight: " + this + " vs " + i2 + "\n");
+                }
+            } else {
+                if (!(immortalsPopulationDead.contains(i2))){
+                    updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
+                    immortalsPopulationDead.add(i2);
+                }
 
-        if (i2.getHealth() > 0) {
-            i2.changeHealth(i2.getHealth() - defaultDamageValue);
-            this.health += defaultDamageValue;
-            updateCallback.processReport("Fight: " + this + " vs " + i2 + "\n");
-        } else {
-            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
+            }
         }
 
     }
